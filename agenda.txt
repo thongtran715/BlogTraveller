@@ -1,8 +1,7 @@
 
 We are going to use the database under my id 
 mysql -u ttran156 --password=ttran156
-choose database from blog_project by: use blog_project command;
-
+use all the tables in my database to access 
 
 
 Mo :
