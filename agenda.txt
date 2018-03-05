@@ -1,0 +1,20 @@
+
+We are going to use the database under my id 
+mysql -u ttran156 --password=ttran156
+choose database from blog_project by: use blog_project command;
+
+
+
+Mo :
+1. Log In Page - Create Account, Reset password, Veried Password, Log In as a guest. 
+2. Part of Veried User - Read and Write Data base with permission 
+
+Thong:
+1. Guest : Read from the database ( View Only with the web page)
+2. Part of Admin User - Read and Write Blogs Pending Database and Upload to Blogs Approved Database
+3. Part of Admin User - Delete or ban user from User Database 
+
+Rifath:
+1. Part of Veried User - Read and Write Blogs Approved Database with Permission 
+2. Part of Veried User - Edit the Blogs Approved Database
+3. Work on the Front-End. 
