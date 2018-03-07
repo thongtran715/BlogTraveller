@@ -41,7 +41,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <i class="fa fa-remove"></i>
   </a>
 
-  <h5 class="w3-bar-item"><b>Hey There, Welcome!!</b></h5>
+  <h5 class="w3-bar-item"><b>Hi There, Welcome!!</b></h5>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
   
@@ -63,8 +63,6 @@ if ($rowcount > 0) {
 		echo "<p>". $row["post_content"] ."</p>";
 		echo '</div>';
 		echo '<div class="w3-third w3-container">';
-		echo '<p class="w3-border w3-padding-large w3-padding-32 w3-center"> picture</p>';
-		echo '<p class="w3-border w3-padding-large w3-padding-64 w3-center">picture</p>';
 		echo ' </div>';
 		echo ' </div>';
 	

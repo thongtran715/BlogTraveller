@@ -45,6 +45,11 @@ if (!$connect)
 	}
 ?>
 
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -74,11 +79,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
   </a>
-  <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="my_post.php">My Post</a>
+ <h4 class="w3-bar-item"><b>Menu</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#">My Post</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Reset Password </a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="layout_write.php">Write Post </a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="approve_blogs.php">Approve post</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#">Delete post </a>
+    <a class="w3-bar-item w3-button w3-hover-black" href="delete_user.php">Delete user </a>
+
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -105,12 +113,10 @@ if ($rowcount_blogs > 0) {
 		$result_fetch_user = mysqli_query($connect,$fetch_user);
 		$row_fetch_user = mysqli_fetch_assoc($result_fetch_user);	
 		$username = $row_fetch_user["firstName"]. " ". $row_fetch_user["lastName"];
-		$date = $row_blogs["post_date"];
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
 		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
 		echo "<h6> By ". $username ." </h6>";
-		echo "<h6> Posted on ". $date. " </h6>";
 		echo "<p>". $row_blogs["post_content"] ."</p>";
 		echo '</div>';
 		echo '<div class="w3-third w3-container">';
@@ -124,7 +130,6 @@ if ($rowcount_blogs > 0) {
 		echo '</form>';
 
 		if ($rowcountcomments > 0) {
-
 			echo '<ul>';
 			while ($row_comments = mysqli_fetch_assoc($sql_comment_query)){
 				$user_comment = $row_comments["uid"];	
@@ -142,16 +147,14 @@ if ($rowcount_blogs > 0) {
 }
 	?>
 
-  
+
+ 
 
 
 
   <footer id="myFooter">
     <div class="w3-container w3-theme-l2 w3-padding-32">
-     <?php
-      $name =  $row_user["firstName"]. " " . $row_user["lastName"];
-      echo "<h4>".$name . "'s Blog". "</h4>";
-     ?>
+      <h4>Rifath Ahmed Blog</h4>
     </div>
 
     
