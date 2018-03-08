@@ -1,3 +1,16 @@
+<?php
+$connect=mysqli_connect("localhost","rahmed13","rahmed13","rahmed13");
+// Check connection
+if (!$connect)
+  {
+  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+	// chosing the table
+	$sql = "select * from blogs";
+	$result = mysqli_query($connect,$sql);
+	$rowcount = mysqli_num_rows($result);
+	mysqli_close($connect);
+?>
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -27,11 +40,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
   </a>
+
+  <h5 class="w3-bar-item"><b>Hi There, Welcome!!</b></h5>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">My Profile</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Setting </a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">More</a>
+  
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -40,39 +53,31 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main" style="margin-left:250px">
 
-  <div class="w3-row w3-padding-64">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal">Heading</h1>
-      <p> Write some post about anything .</p>
-    </div>
-    <div class="w3-third w3-container">
-      <p class="w3-border w3-padding-large w3-padding-32 w3-center"> picture</p>
-      <p class="w3-border w3-padding-large w3-padding-64 w3-center">picture</p>
-    </div>
-  </div>
+<?php
+if ($rowcount > 0) {
+	while($row=mysqli_fetch_assoc($result)){
+		if ($row["post_status"] == "Approved") {
+		echo ' <div class="w3-row w3-padding-64">';
+		echo '<div class="w3-twothird w3-container">';
+		echo '<h1 class="w3-text-teal">'.$row["post_title"].'</h1>';
+		echo "<p>". $row["post_content"] ."</p>";
+		echo '</div>';
+		echo '<div class="w3-third w3-container">';
+		echo ' </div>';
+		echo ' </div>';
+	
+		}
+	}	
+} 
+?>
 
-  <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal">Heading</h1>
-      <p> Write some post about anything</p>
-    </div>
-    <div class="w3-third w3-container">
-      <p class="w3-border w3-padding-large w3-padding-32 w3-center">picture</p>
-      <p class="w3-border w3-padding-large w3-padding-64 w3-center">picture</p>
-    </div>
-  </div>
-
-  
-
+<footer id="myFooter">
+<div class="w3-container w3-theme-l2 w3-padding-32">
+<h4>Rifath Ahmed Blog</h4>
+</div>
 
 
-  <footer id="myFooter">
-    <div class="w3-container w3-theme-l2 w3-padding-32">
-      <h4>Rifath Ahmed Blog</h4>
-    </div>
-
-    
-  </footer>
+</footer>
 
 <!-- END MAIN -->
 </div>
