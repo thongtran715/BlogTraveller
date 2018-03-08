@@ -72,19 +72,17 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <body>
 
 <!-- Navbar -->
-
-
 <!-- Sidebar -->
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
   </a>
  <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="">My Post</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="my_post.php">My Post</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="admin.php">Home</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="reset_password.php">Reset Password </a>
   <a class="w3-bar-item w3-button w3-hover-black" href="approve_blogs.php">Approve post</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Delete post </a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="delete_post.php">Delete post </a>
     <a class="w3-bar-item w3-button w3-hover-black" href="delete_user.php">Delete user </a>
 
 </nav>
@@ -105,8 +103,6 @@ if ($rowcount_blogs > 0) {
 	$sql_comment = "select * from comments where post_id='$post_comment_id'";	
 	$sql_comment_query = mysqli_query($connect,$sql_comment);
 	$rowcountcomments = mysqli_num_rows($sql_comment_query);
-
-		
 		// once we have the blogs. We need to reverse engineering to find the user that posts that post
 		$user_post_that_blog = $row_blogs["uid"];
 		$fetch_user = "select * from user where user_id= '$user_post_that_blog'";
@@ -150,15 +146,6 @@ if ($rowcount_blogs > 0) {
 
  
 
-
-
-  <footer id="myFooter">
-    <div class="w3-container w3-theme-l2 w3-padding-32">
-      <h4>Rifath Ahmed Blog</h4>
-    </div>
-
-    
-  </footer>
 
 <!-- END MAIN -->
 </div>

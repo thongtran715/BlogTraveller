@@ -30,7 +30,7 @@ p{
 <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal">Hi <?php echo "$name"?>, Write some fantastic post  <h6> By <?php echo "$name" ?> <h6> </h1>
-    <form action="write_post.php" method="post">
+    <form action="write_post.php" method="post" >
 		Enter your topic: <input type="text" name="topic" width="100%" height="15"> <br>
 				<p> </p>
 				<h1> </h1>
@@ -40,9 +40,15 @@ p{
 				<br>
 				<textarea rows="4" cols="50" placeholder="Type something in" name="content">
 </textarea> <br>
-
-		<input type="submit">
+	
+		
+				<input type="submit" name="submit">
 		</form>
+
+
+
+
+		
 	
 	  
     </div>

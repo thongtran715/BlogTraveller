@@ -14,7 +14,7 @@ if (!$connect)
 	session_cache_expire(60);
 	session_start();
 	$userEmail = "kim@student.cs.gsu.edu";
-	$password = "";
+	$password = "cac";
 	$sql_user = "select * from user where userEmail='$userEmail' and password='$password'";
 	$result_user = mysqli_query($connect,$sql_user);
 	$rowcount_user = mysqli_num_rows($result_user);
@@ -109,8 +109,8 @@ if ($rowcount_blogs > 0) {
 		$date = $row_blogs["post_date"];
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
-		echo " <a href='detail_post.php?bid=". "$blog_id"."> Hello World </a>";
-		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
+		$title = $row_blogs["post_title"];
+		echo "<a   class='w3-text-teal' href=detail_post.php?bid=",$blog_id,">$title</a>";
 		echo "<h6> By ". $username ." </h6>";
 		echo "<h6> Posted on ". $date. " </h6>";
 		echo "<p>". $row_blogs["post_content"] ."</p>";

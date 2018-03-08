@@ -11,7 +11,7 @@ if (!$connect)
 	// Fetching the data from the user table
 	session_start();
 	$userEmail = "kim@student.cs.gsu.edu";
-	$password = "123";
+	$password = "cac";
 	$sql_user = "select * from user where userEmail='$userEmail' and password='$password'";
 	$result_user = mysqli_query($connect,$sql_user);
 	$rowcount_user = mysqli_num_rows($result_user);

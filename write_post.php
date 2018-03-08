@@ -25,6 +25,7 @@ if (!$connect)
 	</head>
 	<body>
 		<?php
+			$last_insert_id = "";	
 			if ($post_title != "" and $post_content != "")
 			{
 			
@@ -35,6 +36,7 @@ if (!$connect)
 			}	
 			else 
 				{
+				$last_insert_id = mysqli_insert_id($connect);
 				echo ("Your blog has been sent and being reviewed by our admin. Stay tuned"); echo ("<br>");
 				echo ('<a href="VerifiedUser.php"> Click here to go back to main </a>');	
 				}
