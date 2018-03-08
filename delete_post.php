@@ -1,5 +1,5 @@
 <?php 
-
+#hello World
 $connect=mysqli_connect("localhost","rahmed13","rahmed13","rahmed13");
 // Check connection
 if (!$connect)
