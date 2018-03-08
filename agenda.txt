@@ -5,15 +5,11 @@ use all the tables in my database to access
 
 
 Mo :
-1. Log In Page - Create Account, Reset password, Veried Password, Log In as a guest. 
-2. Part of Veried User - Read and Write Data base with permission 
+1. Finishig login and registation form 
+2. Differentiate the user to log in to different system page
 
 Thong:
-1. Guest : Read from the database ( View Only with the web page)
-2. Part of Admin User - Read and Write Blogs Pending Database and Upload to Blogs Approved Database
-3. Part of Admin User - Delete or ban user from User Database 
+Integrating and making sure the smoothly of the website
 
 Rifath:
-1. Part of Veried User - Read and Write Blogs Approved Database with Permission 
-2. Part of Veried User - Edit the Blogs Approved Database
-3. Work on the Front-End. 
+Working on refreshing the page """ with deletion  
