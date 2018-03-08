@@ -14,7 +14,7 @@ if (!$connect)
 	session_cache_expire(60);
 	session_start();
 	$userEmail = "kim@student.cs.gsu.edu";
-	$password = "123";
+	$password = "";
 	$sql_user = "select * from user where userEmail='$userEmail' and password='$password'";
 	$result_user = mysqli_query($connect,$sql_user);
 	$rowcount_user = mysqli_num_rows($result_user);
@@ -77,7 +77,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <h4 class="w3-bar-item"><b>Menu</b></h4>
   <a class="w3-bar-item w3-button w3-hover-black" href="my_post.php">My Post</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Reset Password </a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="reset_password.php">Reset Password </a>
   <a class="w3-bar-item w3-button w3-hover-black" href="layout_write.php">Write Post </a>
 </nav>
 
@@ -101,6 +101,7 @@ if ($rowcount_blogs > 0) {
 		
 		// once we have the blogs. We need to reverse engineering to find the user that posts that post
 		$user_post_that_blog = $row_blogs["uid"];
+		$blog_id = $row_blogs["post_id"];
 		$fetch_user = "select * from user where user_id= '$user_post_that_blog'";
 		$result_fetch_user = mysqli_query($connect,$fetch_user);
 		$row_fetch_user = mysqli_fetch_assoc($result_fetch_user);	
@@ -108,6 +109,7 @@ if ($rowcount_blogs > 0) {
 		$date = $row_blogs["post_date"];
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
+		echo " <a href='detail_post.php?bid=". "$blog_id"."> Hello World </a>";
 		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
 		echo "<h6> By ". $username ." </h6>";
 		echo "<h6> Posted on ". $date. " </h6>";
