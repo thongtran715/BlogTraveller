@@ -1,4 +1,5 @@
 <?php 
+#hello World
 $connect=mysqli_connect("localhost","rahmed13","rahmed13","rahmed13");
 // Check connection
 if (!$connect)
@@ -8,45 +9,45 @@ if (!$connect)
   else 
 	{
 	}
-	// Fetching the data from the user table
+	
 	session_start();	
 if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
      header("Location: login.php");	
       exit();
 }
-	$date = date("Y/m/d");
-	$post_id = $_POST["blog_id_update"];	
-	$sql = "select * from blogs where post_id='$post_id'";
-	$result_blogs = mysqli_query($connect,$sql);
+	
+	$sql_blogs_not_from_current_user = "select * from blogs";
+	$result_blogs = mysqli_query ($connect, $sql_blogs_not_from_current_user);
 	$rowcount_blogs = mysqli_num_rows($result_blogs);
+	
 ?>
 
 <?php
-	$topic = $_POST["topic"];
-	$content = $_POST["content"];
-	$blog_id = $_POST["blog_id"];
-	if ($topic != "" and $content != "")
+
+
+	$blog_id = $_POST["post_id"];
+ if (isset($_POST["no"]))
+   {
+	
+	$query_update = "delete from comments where post_id='$blog_id'";
+	if (!mysqli_query($connect, $query_update))
 	{
-		$mysql = "update blogs set post_title='$topic', post_content='$content', post_status='Pending',post_date='$date'  where post_id='$blog_id'";
-		if (!mysqli_query($connect,$mysql))
-		{
-			echo ("Some thing rong with db");
-		}
-		else {
-			if ($_SESSION["admin"] == 0)
-				header("Location: VerifiedUser.php");
-			else
-				header("Location: admin.php");			
+		echo ("Some thing wrong with the database");	
+	}		
+	$query_update = "delete from blogs where post_id='$blog_id'";
+	if (!mysqli_query($connect, $query_update))
+	{
+		echo ("Some thing wrong with the database");	
+	}	
+	
+   }
 
-		}
-	}
 ?>
-
 
 
 <!DOCTYPE html>
 <html>
-<title>Update Post</title>
+<title>Delete Post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -73,14 +74,15 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
   </a>
-  <h4 class="w3-bar-item"><b>Menu</b></h4>
- <?php
-session_start();
-if ($_SESSION["admin"] == 0)
- echo '<a class="w3-bar-item w3-button w3-hover-black" href="VerifiedUser.php">Home</a>';
-else
- echo '<a class="w3-bar-item w3-button w3-hover-black" href="admin.php">Home</a>';
-?>
+ <h4 class="w3-bar-item"><b>Menu</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-black" href="">My Post</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="admin.php">Home</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="reset_password.php">Reset Password </a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="approve_blogs.php">Approve post</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="delete_post.php">Delete post </a>
+    <a class="w3-bar-item w3-button w3-hover-black" href="delete_user.php">Delete user </a>
+
+
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -92,35 +94,39 @@ else
 <?php
 if ($rowcount_blogs > 0) {
 	while($row_blogs = mysqli_fetch_assoc($result_blogs)) {
-		// once we have the blogs. We need to reverse engineering to find the user that posts that post
+
+	if ($row_blogs["post_status"] == "Approved") {
 		$user_post_that_blog = $row_blogs["uid"];
-		$status = $row_blogs["post_status"];
+		$blog_id = $row_blogs["post_id"];
 		$fetch_user = "select * from user where user_id= '$user_post_that_blog'";
 		$result_fetch_user = mysqli_query($connect,$fetch_user);
 		$row_fetch_user = mysqli_fetch_assoc($result_fetch_user);	
 		$username = $row_fetch_user["firstName"]. " ". $row_fetch_user["lastName"];
+		$date = $row_blogs["post_date"];
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
-		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
-		echo "<h6> Status:  ". $status ." </h6>";
+		$title = $row_blogs["post_title"];
+		echo "<a   class='w3-text-teal' href=detail_post.php?bid=",$blog_id,">$title</a>";
+		echo "<h6> By ". $username ." </h6>";
+		echo "<h6> Posted on ". $date. " </h6>";
 		echo "<p>". $row_blogs["post_content"] ."</p>";
 		echo '</div>';
+		echo '<div class="w3-third w3-container">';
 		echo ' </div>';
-		
-		echo '<div>';
-		echo '<form action="#" id="usrform" method="post"> ';
-		echo 'Update topic : <input type="text" name="topic">';
-		echo '<input type="hidden"  name="blog_id" value="' . htmlspecialchars($row_blogs["post_id"]) . '">';
-		echo '<br>';
-		echo "Update the content: <textarea rows='4' cols='50' placeholder='Type Something in' name='content'> </textarea><br>";
-		echo '<input type="submit" value="Update">';
+		echo ' </div>';
+		echo '<form action="" id="usrform" method="post"> ';
+		echo '<input type="submit" value="Delete this post" name="no">';
+		echo '<input type="hidden"  name="post_id" value="' . htmlspecialchars($blog_id) . '">';
 		echo '</form>';
-	
+		}
 	} 
 }
-	?>
+else {
+	echo ("There is no post to delete from the system");
 
-  
+}
+?>
+
 <!-- END MAIN -->
 </div>
 
@@ -151,3 +157,5 @@ function w3_close() {
 
 </body>
 </html>
+
+

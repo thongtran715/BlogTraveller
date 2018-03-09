@@ -13,16 +13,13 @@ if (!$connect)
 	session_cache_limiter('private, must-revalidate');
 	session_cache_expire(60);
 	session_start();
-	$userEmail = "kim@student.cs.gsu.edu";
-	$password = "";
-	$sql_user = "select * from user where userEmail='$userEmail' and password='$password'";
-	$result_user = mysqli_query($connect,$sql_user);
-	$rowcount_user = mysqli_num_rows($result_user);
-	$row_user = mysqli_fetch_assoc($result_user);
-	$userid = $row_user["user_id"];
-	$_SESSION["name"] = $row_user["firstName"]. " ". $row_user["lastName"];
-	$_SESSION["user_id"] = $userid;
+
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 	// Fetching data from blogs table based on the uid 
+	$userid = $_SESSION["user_id"];
 	$sql_blogs_not_from_current_user = "select * from blogs where blogs.uid != '$userid'";
 	$result_blogs = mysqli_query ($connect, $sql_blogs_not_from_current_user);
 	$rowcount_blogs = mysqli_num_rows($result_blogs);
@@ -43,11 +40,12 @@ if (!$connect)
 			echo ("Something wrong");
 		}
 	}
+	
 ?>
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>User Home Page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -79,6 +77,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="reset_password.php">Reset Password </a>
   <a class="w3-bar-item w3-button w3-hover-black" href="layout_write.php">Write Post </a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="sign_out.php">Sign Out </a>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -109,8 +108,8 @@ if ($rowcount_blogs > 0) {
 		$date = $row_blogs["post_date"];
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
-		echo " <a href='detail_post.php?bid=". "$blog_id"."> Hello World </a>";
-		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
+		$title = $row_blogs["post_title"];
+		echo "<a   class='w3-text-teal' href=detail_post.php?bid=",$blog_id,">$title</a>";
 		echo "<h6> By ". $username ." </h6>";
 		echo "<h6> Posted on ". $date. " </h6>";
 		echo "<p>". $row_blogs["post_content"] ."</p>";
@@ -142,6 +141,8 @@ if ($rowcount_blogs > 0) {
 	}
 	} 
 }
+	
+	mysqli_close($connect);
 	?>
 
   
@@ -151,7 +152,7 @@ if ($rowcount_blogs > 0) {
   <footer id="myFooter">
     <div class="w3-container w3-theme-l2 w3-padding-32">
      <?php
-      $name =  $row_user["firstName"]. " " . $row_user["lastName"];
+      $name =  $_SESSION["name"];
       echo "<h4>".$name . "'s Blog". "</h4>";
      ?>
     </div>

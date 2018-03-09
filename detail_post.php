@@ -9,9 +9,14 @@ if (!$connect)
   else 
 	{
 	}
+	
+	session_start();	
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 	// Fetching data from blogs table based on the uid 
-	$blog_id = $_GETT["bid"];
-	echo ("This is the $blog_id");	
+	$blog_id = $_GET["bid"];
 	$sql_blogs_not_from_current_user = "select * from blogs where blogs.post_id ='$blog_id'";
 	$result_blogs = mysqli_query ($connect, $sql_blogs_not_from_current_user);
 	$rowcount_blogs = mysqli_num_rows($result_blogs);
@@ -36,7 +41,7 @@ if (!$connect)
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Detail Post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -56,19 +61,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <body>
 
 <!-- Navbar -->
-
-
-<!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-    <i class="fa fa-remove"></i>
-  </a>
-  <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="my_post.php">My Post</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="reset_password.php">Reset Password </a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="layout_write.php">Write Post </a>
-</nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
@@ -131,22 +123,7 @@ if ($rowcount_blogs > 0) {
 }
 	?>
 
-  
-
-
-
-  <footer id="myFooter">
-    <div class="w3-container w3-theme-l2 w3-padding-32">
-     <?php
-      $name =  $row_user["firstName"]. " " . $row_user["lastName"];
-      echo "<h4>".$name . "'s Blog". "</h4>";
-     ?>
-    </div>
-
-    
-  </footer>
-
-<!-- END MAIN -->
+  <!-- END MAIN -->
 </div>
 
 <script>

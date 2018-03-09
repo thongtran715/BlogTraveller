@@ -13,7 +13,7 @@ if (!$connect)
 ?>
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Guest View Page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -44,6 +44,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <h5 class="w3-bar-item"><b>Hi There, Welcome!!</b></h5>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="register.php">Excited? Register Now</a>
   
 </nav>
 
@@ -70,15 +71,6 @@ if ($rowcount > 0) {
 	}	
 } 
 ?>
-
-<footer id="myFooter">
-<div class="w3-container w3-theme-l2 w3-padding-32">
-<h4>Rifath Ahmed Blog</h4>
-</div>
-
-
-</footer>
-
 <!-- END MAIN -->
 </div>
 

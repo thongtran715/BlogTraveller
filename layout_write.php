@@ -1,12 +1,17 @@
 <?php
 	session_start();
 	$name = $_SESSION["name"];
+		
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Write your post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -30,7 +35,7 @@ p{
 <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal">Hi <?php echo "$name"?>, Write some fantastic post  <h6> By <?php echo "$name" ?> <h6> </h1>
-    <form action="write_post.php" method="post">
+    <form action="write_post.php" method="post" >
 		Enter your topic: <input type="text" name="topic" width="100%" height="15"> <br>
 				<p> </p>
 				<h1> </h1>
@@ -40,9 +45,15 @@ p{
 				<br>
 				<textarea rows="4" cols="50" placeholder="Type something in" name="content">
 </textarea> <br>
-
-		<input type="submit">
+	
+		
+				<input type="submit" name="submit">
 		</form>
+
+
+
+
+		
 	
 	  
     </div>
