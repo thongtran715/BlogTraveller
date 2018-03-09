@@ -8,6 +8,11 @@ if (!$connect)
   else 
 	{
 	}
+	session_start();	
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 ?>
 
 
@@ -17,11 +22,14 @@ if (!$connect)
 	$user_id = $_SESSION["user_id"];
 		$new = $_POST["new"];	
 		if ($new != "" ) {
-		$mysql = "update user set password='$new' where user_id='4'";
+		$mysql = "update user set password='$new' where user_id='$user_id'";
 		if(!mysqli_query($connect,$mysql))
 		{
 			echo ("Something went wrong");
 		}	
+		else {
+			header("Location: login.php");
+		}
 	}
 
 ?>

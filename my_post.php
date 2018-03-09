@@ -9,17 +9,15 @@ if (!$connect)
 	{
 	}
 	// Fetching the data from the user table
+	session_cache_limiter('private, must-revalidate');
+	session_cache_expire(60);
 	session_start();
-	$userEmail = "kim@student.cs.gsu.edu";
-	$password = "cac";
-	$sql_user = "select * from user where userEmail='$userEmail' and password='$password'";
-	$result_user = mysqli_query($connect,$sql_user);
-	$rowcount_user = mysqli_num_rows($result_user);
-	$row_user = mysqli_fetch_assoc($result_user);
-	$userid = $row_user["user_id"];
-
-      	$_SESSION["name"]=  $row_user["firstName"]. " " . $row_user["lastName"];
-	$_SESSION["user_id"] = $userid;
+	
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
+	$userid = $_SESSION["user_id"];	
 	// Fetching data from blogs table based on the uid 
 	$sql_blogs_not_from_current_user = "select * from blogs where blogs.uid = '$userid'";
 	$result_blogs = mysqli_query ($connect, $sql_blogs_not_from_current_user);
@@ -46,7 +44,7 @@ if (!$connect)
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Your Post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -74,7 +72,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="VerifiedUser.php">Home</a>
+ <?php
+if ($_SESSION["admin"] == 0)
+ echo '<a class="w3-bar-item w3-button w3-hover-black" href="VerifiedUser.php">Home</a>';
+else
+ echo '<a class="w3-bar-item w3-button w3-hover-black" href="admin.php">Home</a>';
+?>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -86,8 +89,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <?php
 if ($rowcount_blogs > 0) {
 	while($row_blogs = mysqli_fetch_assoc($result_blogs)) {
-
-		// Now fetching all the data for comments
+	// Now fetching all the data for comments
 	$post_comment_id = $row_blogs["post_id"];
 	$sql_comment = "select * from comments where post_id='$post_comment_id'";	
 	$sql_comment_query = mysqli_query($connect,$sql_comment);
@@ -104,12 +106,10 @@ if ($rowcount_blogs > 0) {
 		echo ' <div class="w3-row w3-padding-64">';
 		echo '<div class="w3-twothird w3-container">';
 		echo '<h1 class="w3-text-teal">'.$row_blogs["post_title"].'</h1>';
-
-		echo "<p> <form action='update_user_post.php' method='post'>";
+		echo " <form action='update_user_post.php' method='post'>";
 		echo '<input type="hidden"  name="blog_id_update" value="' . htmlspecialchars($row_blogs["post_id"]) . '">';
 		echo '<input type="submit" value="Update Blogs">';
 		echo '</form>';
-		echo '</p>';
 		echo "<h6> Status:  ". $status ." </h6>";
 		echo "<p>". $row_blogs["post_content"] ."</p>";	
 		echo '</div>';
@@ -145,7 +145,7 @@ if ($rowcount_blogs > 0) {
   <footer id="myFooter">
     <div class="w3-container w3-theme-l2 w3-padding-32">
      <?php
-      $name =  $row_user["firstName"]. " " . $row_user["lastName"];
+      $name =  $_SESSION["name"];
       echo "<h4>".$name . "'s Blog". "</h4>";
      ?>
     </div>

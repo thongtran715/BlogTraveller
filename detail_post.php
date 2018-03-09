@@ -9,9 +9,14 @@ if (!$connect)
   else 
 	{
 	}
+	
+	session_start();	
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 	// Fetching data from blogs table based on the uid 
 	$blog_id = $_GET["bid"];
-	echo ("This is the $blog_id");	
 	$sql_blogs_not_from_current_user = "select * from blogs where blogs.post_id ='$blog_id'";
 	$result_blogs = mysqli_query ($connect, $sql_blogs_not_from_current_user);
 	$rowcount_blogs = mysqli_num_rows($result_blogs);
@@ -36,7 +41,7 @@ if (!$connect)
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Detail Post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

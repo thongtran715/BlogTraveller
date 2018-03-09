@@ -1,7 +1,10 @@
-
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<title> Login Page </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -115,15 +118,15 @@ span.psw {
 
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="login_handle.php" method="POST">
+  <form class="modal-content animate" action="login_handle.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <label for="username"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="username" required>
 
       <label for="password1"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password1" required>
@@ -135,12 +138,11 @@ span.psw {
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
 	
-	<p><a href="http://codd.cs.gsu.edu/~mabdin2/register.php">Click here for registration </a></p>
-	<p><a href="http://codd.cs.gsu.edu/~mabdin2/guestview.php">Continue as guest </a></p>
+	<p><a href="register.php">Click here for registration </a></p>
+	<p><a href="Guestview.php">Continue as guest </a></p>
   </form>
 </div>
 

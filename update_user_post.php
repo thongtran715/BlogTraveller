@@ -9,6 +9,11 @@ if (!$connect)
 	{
 	}
 	// Fetching the data from the user table
+	session_start();	
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+     header("Location: login.php");	
+      exit();
+}
 	$date = date("Y/m/d");
 	$post_id = $_POST["blog_id_update"];	
 	$sql = "select * from blogs where post_id='$post_id'";
@@ -27,6 +32,13 @@ if (!$connect)
 		{
 			echo ("Some thing rong with db");
 		}
+		else {
+			if ($_SESSION["admin"] == 0)
+				header("Location: VerifiedUser.php");
+			else
+				header("Location: admin.php");			
+
+		}
 	}
 ?>
 
@@ -34,7 +46,7 @@ if (!$connect)
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Update Post</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -62,7 +74,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="VerifiedUser.php">Home</a>
+ <?php
+session_start();
+if ($_SESSION["admin"] == 0)
+ echo '<a class="w3-bar-item w3-button w3-hover-black" href="VerifiedUser.php">Home</a>';
+else
+ echo '<a class="w3-bar-item w3-button w3-hover-black" href="admin.php">Home</a>';
+?>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
