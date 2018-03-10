@@ -45,6 +45,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <h4 class="w3-bar-item"><b>Menu</b></h4>
   <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="register.php">Excited? Register Now</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="login.php">Log In</a>
+
   
 </nav>
 
